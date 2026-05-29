@@ -18,6 +18,7 @@ PLAZA_MASKING = "./mask_visualization_small.mp4"
 
 # Car POC Assets
 CAR_FLYTHROUGH = "./car_flythrough_blurred_f.mp4"
+CAR2_VIDEO = "./car2_blurred_f.mp4"
 CAR_MASKING = "./car_mask_blurred_f.mp4"
 
 # --- Create Navigation Tabs ---
@@ -111,7 +112,7 @@ with tab2:
 
 
 # ==========================================
-# TAB 3: Car POC (Flythrough Top, Masking Bottom)
+# TAB 3: Car POC (Flythrough Top, Car 2 Middle, Masking Bottom)
 # ==========================================
 with tab3:
     st.subheader("Vehicle Proof of Concept")
@@ -126,7 +127,16 @@ with tab3:
 
     st.markdown("---")
 
-    # 2. Car Masking (Below Flythrough)
+    # 2. Car 2 Render (Middle)
+    st.markdown("## Secondary Car Render")
+    if os.path.exists(CAR2_VIDEO):
+        st.video(CAR2_VIDEO, autoplay=True, loop=True, muted=True)
+    else:
+        st.info(f"Drop your second car video asset at `{CAR2_VIDEO}` to render playback.")
+        
+    st.markdown("---")
+
+    # 3. Car Masking (Bottom)
     st.markdown("## Car Mask Visualizations")
     if os.path.exists(CAR_MASKING):
         st.video(CAR_MASKING, autoplay=True, loop=True, muted=True)
