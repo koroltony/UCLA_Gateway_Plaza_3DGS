@@ -17,8 +17,8 @@ PLAZA_FLYTHROUGH = "./empty_masked_final_small.mp4"
 PLAZA_MASKING = "./mask_visualization_small.mp4"
 
 # Car POC Assets
-CAR_FLYTHROUGH = "./flythrough_car.mp4"
-CAR_MASKING = "./car_mask_fixed.mp4"
+CAR_FLYTHROUGH = "./car_flythrough_blurred_f.mp4"
+CAR_MASKING = "./car_mask_blurred_f.mp4"
 
 # --- Create Navigation Tabs ---
 tab1, tab2, tab3 = st.tabs([
