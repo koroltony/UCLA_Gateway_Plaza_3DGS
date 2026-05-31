@@ -153,9 +153,9 @@ with tab3:
         img_col1, img_col2 = st.columns(2)
         with img_col1:
             img1 = Image.open(MASK_COMP1)
-            st.image(img1, caption="Mask Comparison 1", use_container_width=True)
+            st.image(img1, caption="Unmasked - Cleaned in Supersplat", use_container_width=True)
         with img_col2:
             img2 = Image.open(MASK_COMP2)
-            st.image(img2, caption="Mask Comparison 2", use_container_width=True)
+            st.image(img2, caption="Masked", use_container_width=True)
     else:
         st.info(f"Verify that both `{MASK_COMP1}` and `{MASK_COMP2}` are located in your root directory to show static image comparison views side-by-side.")
