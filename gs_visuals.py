@@ -20,6 +20,8 @@ PLAZA_MASKING = "./mask_visualization_small.mp4"
 CAR_FLYTHROUGH = "./car_flythrough_blurred_f.mp4"
 CAR2_VIDEO = "./car2_blurred_f.mp4"
 CAR_MASKING = "./car_mask_blurred_f.mp4"
+MASK_COMP1 = "./mask_comp1.png"
+MASK_COMP2 = "./mask_comp2.png"
 
 # --- Create Navigation Tabs ---
 tab1, tab2, tab3 = st.tabs([
@@ -142,3 +144,18 @@ with tab3:
         st.video(CAR_MASKING, autoplay=True, loop=True, muted=True)
     else:
         st.info(f"Drop your car masking video asset at `{CAR_MASKING}` to render playback.")
+
+    st.markdown("---")
+
+    # 4. Side-by-Side Image Comparison 
+    st.markdown("## Car Mask Comparison Images")
+    if os.path.exists(MASK_COMP1) and os.path.exists(MASK_COMP2):
+        img_col1, img_col2 = st.columns(2)
+        with img_col1:
+            img1 = Image.open(MASK_COMP1)
+            st.image(img1, caption="Mask Comparison 1", use_container_width=True)
+        with img_col2:
+            img2 = Image.open(MASK_COMP2)
+            st.image(img2, caption="Mask Comparison 2", use_container_width=True)
+    else:
+        st.info(f"Verify that both `{MASK_COMP1}` and `{MASK_COMP2}` are located in your root directory to show static image comparison views side-by-side.")
