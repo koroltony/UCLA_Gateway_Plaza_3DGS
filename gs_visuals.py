@@ -23,10 +23,9 @@ CAR_MASKING = "./car_mask_blurred_f.mp4"
 MASK_COMP1 = "./mask_comp1.png"
 MASK_COMP2 = "./mask_comp2.png"
 
-# --- CACHING OPERATIONS FOR SPEED PERFORMANCE ---
+# --- CACHING FIX FOR CLOUD MEMORY LIMITS ---
 @st.cache_data
 def get_sorted_frames(directory, filter_keywords):
-    """Caches file IO directory scans to avoid scanning disk on every rerun."""
     if not os.path.exists(directory):
         return []
     all_files = sorted([f for f in os.listdir(directory) if f.endswith(('.png', '.jpg', '.jpeg'))])
@@ -34,15 +33,9 @@ def get_sorted_frames(directory, filter_keywords):
     return filtered if filtered else all_files
 
 @st.cache_resource
-def load_cached_image(file_path, max_width=None):
-    """Caches heavy high-res image decoding paths in system RAM."""
-    img = Image.open(file_path)
-    if max_width and img.width > max_width:
-        # Generate lightweight downsampled copies for thumbnail rendering grid
-        ratio = max_width / float(img.width)
-        h_size = int(float(img.height) * float(ratio))
-        img = img.resize((max_width, h_size), Image.Resampling.LANCZOS)
-    return img
+def load_cached_image(file_path):
+    # Loads the full original resolution, but caches it in RAM to prevent server lag
+    return Image.open(file_path)
 
 # --- Create Navigation Tabs ---
 tab1, tab2, tab3 = st.tabs([
@@ -59,7 +52,6 @@ with tab1:
     st.subheader("Frame-by-Frame Example Inspection")
     st.write("Click on a thumbnail to select a frame")
     
-    # Fast cached directory parsing
     gt_images = get_sorted_frames(GT_DIR, ["gt", "input"])
     render_images = get_sorted_frames(RENDER_DIR, ["render", "frame"])
     total_frames = min(len(gt_images), len(render_images))
@@ -67,31 +59,26 @@ with tab1:
     if total_frames == 0:
         st.error("No valid frame sequences discovered inside directory mappings.")
     else:
-        # Initialize session state for tracking selected frame index
         if "selected_frame" not in st.session_state:
             st.session_state.selected_frame = 0
 
-        # Create horizontal grid for thumbnails
         thumb_cols = st.columns(total_frames)
         
         for idx in range(total_frames):
             with thumb_cols[idx]:
-                # Max-width parameter forces generation of lightweight, cached mini thumbnails
-                thumb_img = load_cached_image(os.path.join(GT_DIR, gt_images[idx]), max_width=150)
+                # Loading at full native resolution
+                thumb_img = load_cached_image(os.path.join(GT_DIR, gt_images[idx]))
                 st.image(thumb_img, use_container_width=True)
                 if st.button(f"frame {idx + 1}", key=f"btn_frame_{idx}", use_container_width=True):
                     st.session_state.selected_frame = idx
 
-        # Set active index from user selection
         frame_idx = st.session_state.selected_frame
         
-        # Pull full-sized comparison images directly from RAM cache
         img_gt = load_cached_image(os.path.join(GT_DIR, gt_images[frame_idx]))
         img_render = load_cached_image(os.path.join(RENDER_DIR, render_images[frame_idx]))
 
         st.caption(f"Currently tracking frame index: {frame_idx} | Source: {gt_images[frame_idx]}")
 
-        # --- CENTERING MECHANISM ---
         left_spacer, center_col, right_spacer = st.columns([1, 3, 1])
         
         with center_col:
@@ -111,7 +98,6 @@ with tab1:
 # TAB 2: Plaza Media (Flythrough Top, Masking Bottom)
 # ==========================================
 with tab2:
-    # 1. Flythrough Section (Top & Prominent)
     st.markdown("## Cinematic Camera Fly-Through")
     st.write("Continuous trajectory path rendered out of the 3DGS Plaza reconstruction")
     if os.path.exists(PLAZA_FLYTHROUGH):
@@ -119,9 +105,8 @@ with tab2:
     else:
         st.info(f"Drop your plaza fly-through video asset at `{PLAZA_FLYTHROUGH}` to render playback.")
 
-    st.markdown("---") # Visual separator line
+    st.markdown("---")
 
-    # 2. Masking Section (Below Flythrough)
     st.markdown("## Dynamic Training Mask Visualizations")
     st.write("Semantic rendering masks applied to filter noise, eliminate transient elements, and isolate rigid geometry.")
     if os.path.exists(PLAZA_MASKING):
@@ -137,7 +122,6 @@ with tab3:
     st.subheader("Vehicle Proof of Concept")
     st.write("Simple static scenario with easy key-features for COLMAP initialization and GS Optimization")
 
-    # 1. Car Flythrough (Top) - Fixed parameter structure
     st.markdown("## Car Render Fly-Through")
     if os.path.exists(CAR_FLYTHROUGH):
         st.video(CAR_FLYTHROUGH, autoplay=True, loop=True, muted=True)
@@ -146,7 +130,6 @@ with tab3:
 
     st.markdown("---")
 
-    # 2. Car 2 Render (Middle) - Fixed parameter structure
     st.markdown("## Secondary Car Render")
     if os.path.exists(CAR2_VIDEO):
         st.video(CAR2_VIDEO, autoplay=True, loop=True, muted=True)
@@ -155,7 +138,6 @@ with tab3:
         
     st.markdown("---")
 
-    # 3. Car Masking (Bottom) - Fixed parameter structure
     st.markdown("## Car Mask Visualizations")
     if os.path.exists(CAR_MASKING):
         st.video(CAR_MASKING, autoplay=True, loop=True, muted=True)
@@ -164,7 +146,6 @@ with tab3:
 
     st.markdown("---")
 
-    # 4. Side-by-Side Image Comparison 
     st.markdown("## Car Mask Comparison Images")
     if os.path.exists(MASK_COMP1) and os.path.exists(MASK_COMP2):
         img_col1, img_col2 = st.columns(2)
