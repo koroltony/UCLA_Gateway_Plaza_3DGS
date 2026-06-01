@@ -23,6 +23,27 @@ CAR_MASKING = "./car_mask_blurred_f.mp4"
 MASK_COMP1 = "./mask_comp1.png"
 MASK_COMP2 = "./mask_comp2.png"
 
+# --- CACHING OPERATIONS FOR SPEED PERFORMANCE ---
+@st.cache_data
+def get_sorted_frames(directory, filter_keywords):
+    """Caches file IO directory scans to avoid scanning disk on every rerun."""
+    if not os.path.exists(directory):
+        return []
+    all_files = sorted([f for f in os.listdir(directory) if f.endswith(('.png', '.jpg', '.jpeg'))])
+    filtered = [f for f in all_files if any(k in f for k in filter_keywords)]
+    return filtered if filtered else all_files
+
+@st.cache_resource
+def load_cached_image(file_path, max_width=None):
+    """Caches heavy high-res image decoding paths in system RAM."""
+    img = Image.open(file_path)
+    if max_width and img.width > max_width:
+        # Generate lightweight downsampled copies for thumbnail rendering grid
+        ratio = max_width / float(img.width)
+        h_size = int(float(img.height) * float(ratio))
+        img = img.resize((max_width, h_size), Image.Resampling.LANCZOS)
+    return img
+
 # --- Create Navigation Tabs ---
 tab1, tab2, tab3 = st.tabs([
     "Ground-Truth Comparison", 
@@ -38,14 +59,9 @@ with tab1:
     st.subheader("Frame-by-Frame Example Inspection")
     st.write("Click on a thumbnail to select a frame")
     
-    # Gather paired image tracking sequences
-    gt_images = sorted([f for f in os.listdir(GT_DIR) if f.endswith(('.png', '.jpg', '.jpeg')) if "gt" in f or "input" in f])
-    render_images = sorted([f for f in os.listdir(RENDER_DIR) if f.endswith(('.png', '.jpg', '.jpeg')) if "render" in f or "frame" in f])
-
-    if not gt_images or not render_images:
-        gt_images = sorted([f for f in os.listdir(GT_DIR) if f.endswith(('.png', '.jpg', '.jpeg'))])
-        render_images = sorted([f for f in os.listdir(RENDER_DIR) if f.endswith(('.png', '.jpg', '.jpeg'))])
-
+    # Fast cached directory parsing
+    gt_images = get_sorted_frames(GT_DIR, ["gt", "input"])
+    render_images = get_sorted_frames(RENDER_DIR, ["render", "frame"])
     total_frames = min(len(gt_images), len(render_images))
 
     if total_frames == 0:
@@ -60,7 +76,8 @@ with tab1:
         
         for idx in range(total_frames):
             with thumb_cols[idx]:
-                thumb_img = Image.open(os.path.join(GT_DIR, gt_images[idx]))
+                # Max-width parameter forces generation of lightweight, cached mini thumbnails
+                thumb_img = load_cached_image(os.path.join(GT_DIR, gt_images[idx]), max_width=150)
                 st.image(thumb_img, use_container_width=True)
                 if st.button(f"frame {idx + 1}", key=f"btn_frame_{idx}", use_container_width=True):
                     st.session_state.selected_frame = idx
@@ -68,9 +85,9 @@ with tab1:
         # Set active index from user selection
         frame_idx = st.session_state.selected_frame
         
-        # Pull images out of targeted directory pointers
-        img_gt = Image.open(os.path.join(GT_DIR, gt_images[frame_idx]))
-        img_render = Image.open(os.path.join(RENDER_DIR, render_images[frame_idx]))
+        # Pull full-sized comparison images directly from RAM cache
+        img_gt = load_cached_image(os.path.join(GT_DIR, gt_images[frame_idx]))
+        img_render = load_cached_image(os.path.join(RENDER_DIR, render_images[frame_idx]))
 
         st.caption(f"Currently tracking frame index: {frame_idx} | Source: {gt_images[frame_idx]}")
 
@@ -123,7 +140,7 @@ with tab3:
     # 1. Car Flythrough (Top)
     st.markdown("## Car Render Fly-Through")
     if os.path.exists(CAR_FLYTHROUGH):
-        st.video(CAR_FLYTHROUGH, autoplay=True, loop=True, muted=True)
+        st.video(CAR_FLYTHROUGH, autoplay=True, loop=True, muted=True, key="car_fly1")
     else:
         st.info(f"Drop your car fly-through video asset at `{CAR_FLYTHROUGH}` to render playback.")
 
@@ -132,7 +149,7 @@ with tab3:
     # 2. Car 2 Render (Middle)
     st.markdown("## Secondary Car Render")
     if os.path.exists(CAR2_VIDEO):
-        st.video(CAR2_VIDEO, autoplay=True, loop=True, muted=True)
+        st.video(CAR2_VIDEO, autoplay=True, loop=True, muted=True, key="car_render2")
     else:
         st.info(f"Drop your second car video asset at `{CAR2_VIDEO}` to render playback.")
         
@@ -141,7 +158,7 @@ with tab3:
     # 3. Car Masking (Bottom)
     st.markdown("## Car Mask Visualizations")
     if os.path.exists(CAR_MASKING):
-        st.video(CAR_MASKING, autoplay=True, loop=True, muted=True)
+        st.video(CAR_MASKING, autoplay=True, loop=True, muted=True, key="car_mask1")
     else:
         st.info(f"Drop your car masking video asset at `{CAR_MASKING}` to render playback.")
 
@@ -152,10 +169,10 @@ with tab3:
     if os.path.exists(MASK_COMP1) and os.path.exists(MASK_COMP2):
         img_col1, img_col2 = st.columns(2)
         with img_col1:
-            img1 = Image.open(MASK_COMP1)
+            img1 = load_cached_image(MASK_COMP1)
             st.image(img1, caption="Unmasked - Cleaned in Supersplat", use_container_width=True)
         with img_col2:
-            img2 = Image.open(MASK_COMP2)
+            img2 = load_cached_image(MASK_COMP2)
             st.image(img2, caption="Masked", use_container_width=True)
     else:
         st.info(f"Verify that both `{MASK_COMP1}` and `{MASK_COMP2}` are located in your root directory to show static image comparison views side-by-side.")
