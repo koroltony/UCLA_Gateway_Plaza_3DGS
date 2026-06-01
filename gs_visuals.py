@@ -20,15 +20,15 @@ PLAZA_MASKING = "./mask_visualization_small.mp4"
 CAR_FLYTHROUGH = "./car_flythrough_blurred_f.mp4"
 CAR2_VIDEO = "./car2_blurred_f.mp4"
 CAR_MASKING = "./car_mask_blurred_f.mp4"
-MASK_COMP1 = "./mask_comp1.png"
-MASK_COMP2 = "./mask_comp2.png"
+MASK_COMP1 = "./mask_comp1.jpg"
+MASK_COMP2 = "./mask_comp2.jpg"
 
 # --- CACHING FIX FOR CLOUD MEMORY LIMITS ---
 @st.cache_data
 def get_sorted_frames(directory, filter_keywords):
     if not os.path.exists(directory):
         return []
-    all_files = sorted([f for f in os.listdir(directory) if f.endswith(('.png', '.jpg', '.jpeg'))])
+    all_files = sorted([f for f in os.listdir(directory) if f.endswith(('.jpg', '.jpeg'))])
     filtered = [f for f in all_files if any(k in f for k in filter_keywords)]
     return filtered if filtered else all_files
 
