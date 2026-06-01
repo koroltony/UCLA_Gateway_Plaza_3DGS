@@ -68,8 +68,8 @@ with tab1:
             with thumb_cols[idx]:
                 # Loading at full native resolution
                 thumb_img = load_cached_image(os.path.join(GT_DIR, gt_images[idx]))
-                st.image(thumb_img, use_container_width=True)
-                if st.button(f"frame {idx + 1}", key=f"btn_frame_{idx}", use_container_width=True):
+                st.image(thumb_img, width='stretch')
+                if st.button(f"frame {idx + 1}", key=f"btn_frame_{idx}", width='stretch'):
                     st.session_state.selected_frame = idx
 
         frame_idx = st.session_state.selected_frame
@@ -151,9 +151,9 @@ with tab3:
         img_col1, img_col2 = st.columns(2)
         with img_col1:
             img1 = load_cached_image(MASK_COMP1)
-            st.image(img1, caption="Unmasked - Cleaned in Supersplat", use_container_width=True)
+            st.image(img1, caption="Unmasked - Cleaned in Supersplat", width='stretch')
         with img_col2:
             img2 = load_cached_image(MASK_COMP2)
-            st.image(img2, caption="Masked", use_container_width=True)
+            st.image(img2, caption="Masked", width='stretch')
     else:
         st.info(f"Verify that both `{MASK_COMP1}` and `{MASK_COMP2}` are located in your root directory to show static image comparison views side-by-side.")
