@@ -137,28 +137,28 @@ with tab3:
     st.subheader("Vehicle Proof of Concept")
     st.write("Simple static scenario with easy key-features for COLMAP initialization and GS Optimization")
 
-    # 1. Car Flythrough (Top)
+    # 1. Car Flythrough (Top) - Fixed parameter structure
     st.markdown("## Car Render Fly-Through")
     if os.path.exists(CAR_FLYTHROUGH):
-        st.video(CAR_FLYTHROUGH, autoplay=True, loop=True, muted=True, key="car_fly1")
+        st.video(CAR_FLYTHROUGH, autoplay=True, loop=True, muted=True)
     else:
         st.info(f"Drop your car fly-through video asset at `{CAR_FLYTHROUGH}` to render playback.")
 
     st.markdown("---")
 
-    # 2. Car 2 Render (Middle)
+    # 2. Car 2 Render (Middle) - Fixed parameter structure
     st.markdown("## Secondary Car Render")
     if os.path.exists(CAR2_VIDEO):
-        st.video(CAR2_VIDEO, autoplay=True, loop=True, muted=True, key="car_render2")
+        st.video(CAR2_VIDEO, autoplay=True, loop=True, muted=True)
     else:
         st.info(f"Drop your second car video asset at `{CAR2_VIDEO}` to render playback.")
         
     st.markdown("---")
 
-    # 3. Car Masking (Bottom)
+    # 3. Car Masking (Bottom) - Fixed parameter structure
     st.markdown("## Car Mask Visualizations")
     if os.path.exists(CAR_MASKING):
-        st.video(CAR_MASKING, autoplay=True, loop=True, muted=True, key="car_mask1")
+        st.video(CAR_MASKING, autoplay=True, loop=True, muted=True)
     else:
         st.info(f"Drop your car masking video asset at `{CAR_MASKING}` to render playback.")
 
