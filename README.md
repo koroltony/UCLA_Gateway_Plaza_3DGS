@@ -1,12 +1,5 @@
 # UCLA Gateway Plaza 3D Gaussian Splatting (3DGS) Showcase
 
-<img width="1920" height="1080" alt="frame_0913" src="https://github.com/user-attachments/assets/eb17a347-a19b-430f-bdac-f45adb7dbd5d" />
-<img width="1920" height="1080" alt="frame_0857" src="https://github.com/user-attachments/assets/3eaa0b22-d48d-4264-b0bd-c4cc2e495730" />
-<img width="1920" height="1080" alt="frame_0633" src="https://github.com/user-attachments/assets/5864f021-be46-4516-b7fd-c5e3c62e882e" />
-<img width="1920" height="1080" alt="frame_0417" src="https://github.com/user-attachments/assets/63dba387-9169-4249-9ab5-6061baebe304" />
-<img width="1920" height="1080" alt="frame_0065" src="https://github.com/user-attachments/assets/b5cb5b5d-189e-4e41-ae02-82e8820846a0" />
-
-
 An interactive presentation dashboard built with Streamlit to visualize and evaluate 3D Gaussian Splatting (3DGS) reconstruction fidelity. This project features dynamic frame-by-frame viewport comparisons, cinematic camera fly-throughs, and structural training mask tracking for both the primary urban street scene and a vehicle proof of concept.
 
 ## Live Interactive Presentation
@@ -15,6 +8,13 @@ The complete dashboard is hosted on the Streamlit Community Cloud and can be acc
 **[Launch the Live 3DGS Dashboard Workspace](https://uclagatewayplaza3dgs-f8wajulkkjqwy7nf4cusxg.streamlit.app/)**
 
 ---
+
+<img width="200" alt="frame_0913" src="https://github.com/user-attachments/assets/eb17a347-a19b-430f-bdac-f45adb7dbd5d" />
+<img width="200" alt="frame_0857" src="https://github.com/user-attachments/assets/3eaa0b22-d48d-4264-b0bd-c4cc2e495730" />
+<img width="200" alt="frame_0633" src="https://github.com/user-attachments/assets/5864f021-be46-4516-b7fd-c5e3c62e882e" />
+
+<img width="400" alt="frame_0417" src="https://github.com/user-attachments/assets/63dba387-9169-4249-9ab5-6061baebe304" />
+<img width="400" alt="frame_0065" src="https://github.com/user-attachments/assets/b5cb5b5d-189e-4e41-ae02-82e8820846a0" />
 
 ## Project Architecture & Contents
 
