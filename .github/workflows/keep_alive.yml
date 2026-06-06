@@ -22,5 +22,5 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git commit --allow-empty -m "chore: ping Streamlit to prevent sleep"
+          git commit --allow-empty -m "Github Bot: empty commit to keep streamlit up"
           git push
