@@ -1,4 +1,11 @@
-# UCLA Gateway Plaza 3D Gaussian Splatting (3DGS) Reconstruction 
+# UCLA Gateway Plaza 3D Gaussian Splatting (3DGS) Showcase
+
+<img width="1920" height="1080" alt="frame_0913" src="https://github.com/user-attachments/assets/eb17a347-a19b-430f-bdac-f45adb7dbd5d" />
+<img width="1920" height="1080" alt="frame_0857" src="https://github.com/user-attachments/assets/3eaa0b22-d48d-4264-b0bd-c4cc2e495730" />
+<img width="1920" height="1080" alt="frame_0633" src="https://github.com/user-attachments/assets/5864f021-be46-4516-b7fd-c5e3c62e882e" />
+<img width="1920" height="1080" alt="frame_0417" src="https://github.com/user-attachments/assets/63dba387-9169-4249-9ab5-6061baebe304" />
+<img width="1920" height="1080" alt="frame_0065" src="https://github.com/user-attachments/assets/b5cb5b5d-189e-4e41-ae02-82e8820846a0" />
+
 
 An interactive presentation dashboard built with Streamlit to visualize and evaluate 3D Gaussian Splatting (3DGS) reconstruction fidelity. This project features dynamic frame-by-frame viewport comparisons, cinematic camera fly-throughs, and structural training mask tracking for both the primary urban street scene and a vehicle proof of concept.
 
@@ -16,34 +23,15 @@ The dashboard is structured into four unified navigation modules designed to sho
 ### 1. Interactive Viewport Comparison
 * **Purpose:** Validates pixel-level reconstruction accuracy against the training baseline.
 * **Functionality:** Features a centered, responsive **Juxtapose Slider** widget. Users can seamlessly scrub back and forth down to the pixel level to contrast the original ground-truth video captures against synthetic 3DGS viewports.
-* **Timeline Tracker:** A sequential timeline slider allows frame-by-frame scrubbing across several side-by-side examples to compare GS output vs ground-truth training frames.
 
 ### 2. Plaza Reconstruction Media
-* **Cinematic Camera Fly-Through:** A camera path trajectory rendered directly out of the optimized GS model, showcasing continuous spatial consistency.
-* **Dynamic Training Mask Visualizations:** Showcases the background semantic masks utilized during Nerfstudio training to isolate static rigid plaza geometry and filter transient noise.
+* **Cinematic Camera Fly-Through:** A camera path trajectory rendered directly out of the optimized GS model, showcasing continuous spatial consistency across the unstaged outdoor crosswalk scene.
+* **Dynamic Training Mask Visualizations:** Showcases the background semantic masks utilized during Nerfstudio training to isolate static rigid plaza geometry and filter transient noise (like moving pedestrians or lighting shifts).
 
-**Plaza Reconstruction Results:**
-
-<video src="./empty_masked_final_small.mp4" width="800" controls autoplay loop muted></video>
-
-*UCLA Gateway Plaza 3DGS Flythrough*
-
-### 3. Car Proof of Concept (POC)
-* **Car Rendering Reconstruction:** A proof-of-concept using highly overlapping frames, easy key-frame mapping, and static environment done before the UCLA plaza reconstruction.
-* **Visual Asset Tracking:** Includes a fly-through alongside its corresponding isolated binary masking video sequence.
-
-**Car Masking & Filtering Example:**
-
-<video src="./car_flythrough_blurred_f.mp4" width="800" controls autoplay loop muted></video>
-*Left: Unmasked (Cleaned in Supersplat)*
-
-<video src="./car_mask_blurred_f.mp4" width="800" controls autoplay loop muted></video>
-*Right: Isolated Semantic Masking*
+### 3. Car Proof of Concept
+* **Car Rendering Reconstruction:** A preliminary proof-of-concept utilizing highly overlapping frames, easy key-frame mapping, and a static environment executed before scaling up to the full UCLA plaza reconstruction.
+* **Visual Asset Tracking:** Compares the standard unmasked fly-through (cleaned manually using Supersplat) against its corresponding isolated binary masking video sequence to evaluate geometry filtering quality.
 
 ### 4. Nvidia Isaac Simulation Integration
-* **Fused Physical and Gaussian Representations:** Compares the 3DGS reconstructed environment with traditional physical 3D model structures directly within the Isaac engine.
-* **Simulating Vehicle Dynamics:** Demonstrates the viability of using Gaussian representations for downstream robotics tasks by integrating hybrid physics and running moving vehicle simulations through the reconstructed environment.
-
-**Isaac Simulation Results:**
-
-<video src="./Isaac_Moving_Car_final.mp4" width="800" controls autoplay loop muted></video>
+* **Fused Physical and Gaussian Representations:** Imports the completed 3DGS environment into the Nvidia Isaac engine, mapping the organic Gaussian reconstruction directly alongside traditional rigid 3D physical models to verify spatial accuracy.
+* **Simulating Vehicle Dynamics:** Demonstrates the practical downstream robotics applications of the pipeline. This section tracks hybrid physics simulations, testing how autonomous vehicle agents interact with and navigate through the reconstructed 3DGS environment.
