@@ -13,8 +13,8 @@ The complete dashboard is hosted on the Streamlit Community Cloud and can be acc
 <img width="200" alt="frame_0857" src="https://github.com/user-attachments/assets/3eaa0b22-d48d-4264-b0bd-c4cc2e495730" />
 <img width="200" alt="frame_0633" src="https://github.com/user-attachments/assets/5864f021-be46-4516-b7fd-c5e3c62e882e" />
 
-<img width="400" alt="frame_0417" src="https://github.com/user-attachments/assets/63dba387-9169-4249-9ab5-6061baebe304" />
-<img width="400" alt="frame_0065" src="https://github.com/user-attachments/assets/b5cb5b5d-189e-4e41-ae02-82e8820846a0" />
+<img width="200" alt="frame_0417" src="https://github.com/user-attachments/assets/63dba387-9169-4249-9ab5-6061baebe304" />
+<img width="200" alt="frame_0065" src="https://github.com/user-attachments/assets/b5cb5b5d-189e-4e41-ae02-82e8820846a0" />
 
 ## Project Architecture & Contents
 
