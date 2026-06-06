@@ -2,13 +2,25 @@ name: Keep Streamlit App Awake
 
 on:
   schedule:
-    # Runs at minute 0 past every 2nd hour
     - cron: '0 */2 * * *'
-  workflow_dispatch: # Allows you to run it manually if needed
+  workflow_dispatch:
+
+# This permission block is required so the bot is allowed to push code
+permissions:
+  contents: write 
 
 jobs:
-  ping:
+  keep-alive:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit App
-        run: curl -s https://uclagatewayplaza3dgs-f8wajulkkjqwy7nf4cusxg.streamlit.app/ > /dev/null
+      # Step 1: Download your repository code into the virtual machine
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # Step 2: Push an invisible change to trick Streamlit into resetting the timer
+      - name: Create empty commit
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "chore: ping Streamlit to prevent sleep"
+          git push
