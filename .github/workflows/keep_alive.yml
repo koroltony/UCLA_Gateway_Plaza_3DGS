@@ -5,22 +5,22 @@ on:
     - cron: '0 */2 * * *'
   workflow_dispatch:
 
-# This permission block is required so the bot is allowed to push code
 permissions:
   contents: write 
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   keep-alive:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Download your repository code into the virtual machine
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      # Step 2: Push an invisible change to trick Streamlit into resetting the timer
       - name: Create empty commit
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git commit --allow-empty -m "Github Bot: empty commit to keep streamlit up"
+          git commit --allow-empty -m "Auto Empty Commit to Keep Streamlit up"
           git push
