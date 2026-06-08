@@ -43,11 +43,12 @@ def load_image(file_path):
     return Image.open(file_path)
 
 # --- Create Navigation Tabs ---
-tab1, tab2, tab3, tab4 = st.tabs([
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Ground-Truth Comparison", 
     "UCLA Gateway Plaza Videos", 
     "Car Proof of Concept Videos",
-    "Nvidia Isaac Simulation"
+    "Nvidia Isaac Simulation",
+    "Interactive SuperSplat View"
 ])
 
 
@@ -127,9 +128,9 @@ with tab2:
 
 
 # ==========================================
-# TAB 3: Car POC (Flythrough Top, Car 2 Middle, Masking Bottom)
+# TAB 4: Car POC (Flythrough Top, Car 2 Middle, Masking Bottom)
 # ==========================================
-with tab3:
+with tab4:
     st.subheader("Vehicle Proof of Concept")
     st.write("Simple static scenario with easy key-features for COLMAP initialization and GS Optimization")
 
@@ -177,9 +178,9 @@ with tab3:
 
 
 # ==========================================
-# TAB 4: Nvidia Isaac Simulation
+# TAB 5: Nvidia Isaac Simulation
 # ==========================================
-with tab4:
+with tab5:
     st.markdown("## Fused Physical and Gaussian Representations")
     st.write("Comparing the reconstructed scene with the physical 3D model representation.")
     
@@ -200,7 +201,6 @@ with tab4:
 
     st.markdown("---")
 
-   
     st.markdown("## Simulating Vehicle Dynamics")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -218,3 +218,18 @@ with tab4:
             st.video(HYBRID_ISAAC, autoplay=True, loop=True, muted=True)
         else:
             st.info(f"Drop your hybrid simulation video asset at `{HYBRID_ISAAC}` to render playback.")
+
+# ==========================================
+# TAB 2: Interactive SuperSplat Viewer
+# ==========================================
+with tab3:
+    st.markdown("## Interactive SuperSplat Scene")
+    st.write("Explore the trained 3D Gaussian Splatting scene interactively right here in the dashboard.")
+    
+    # Embedding the live webpage
+    st.markdown(
+        """
+        <iframe src="https://superspl.at/scene/ccb8ad42" width="100%" height="800" style="border:none;"></iframe>
+        """,
+        unsafe_allow_html=True
+    )
