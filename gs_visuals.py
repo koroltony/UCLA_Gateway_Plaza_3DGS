@@ -126,6 +126,21 @@ with tab2:
         else:
             st.info(f"Drop your plaza masking video asset at `{PLAZA_MASKING}` to render playback.")
 
+# ==========================================
+# TAB 3: Interactive SuperSplat Viewer
+# ==========================================
+with tab3:
+    st.markdown("## Interactive SuperSplat Scene")
+    st.write("Explore the trained 3D Gaussian Splatting scene interactively right here in the dashboard.")
+    
+    # Embedding the live webpage
+    st.markdown(
+        """
+        <iframe src="https://superspl.at/scene/ccb8ad42" width="100%" height="800" style="border:none;"></iframe>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 # ==========================================
 # TAB 4: Car POC (Flythrough Top, Car 2 Middle, Masking Bottom)
@@ -218,18 +233,3 @@ with tab5:
             st.video(HYBRID_ISAAC, autoplay=True, loop=True, muted=True)
         else:
             st.info(f"Drop your hybrid simulation video asset at `{HYBRID_ISAAC}` to render playback.")
-
-# ==========================================
-# TAB 2: Interactive SuperSplat Viewer
-# ==========================================
-with tab3:
-    st.markdown("## Interactive SuperSplat Scene")
-    st.write("Explore the trained 3D Gaussian Splatting scene interactively right here in the dashboard.")
-    
-    # Embedding the live webpage
-    st.markdown(
-        """
-        <iframe src="https://superspl.at/scene/ccb8ad42" width="100%" height="800" style="border:none;"></iframe>
-        """,
-        unsafe_allow_html=True
-    )
