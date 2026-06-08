@@ -46,9 +46,9 @@ def load_image(file_path):
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Ground-Truth Comparison", 
     "UCLA Gateway Plaza Videos", 
+    "Interactive SuperSplat View",
     "Car Proof of Concept Videos",
-    "Nvidia Isaac Simulation",
-    "Interactive SuperSplat View"
+    "Nvidia Isaac Simulation"
 ])
 
 
