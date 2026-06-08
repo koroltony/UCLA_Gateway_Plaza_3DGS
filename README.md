@@ -11,6 +11,7 @@ An interactive presentation dashboard built with Streamlit to visualize and eval
 The complete dashboard is hosted on the Streamlit Community Cloud and can be accessed dynamically via the link below:
 
 **[Launch the Live 3DGS Dashboard Workspace](https://uclagatewayplaza3dgs-f8wajulkkjqwy7nf4cusxg.streamlit.app/)**
+---
 **[Launch SuperSplat Viewer](https://superspl.at/scene/ccb8ad42)**
 
 ---
