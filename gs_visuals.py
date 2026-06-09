@@ -133,10 +133,17 @@ with tab3:
     st.markdown("## Interactive SuperSplat Scene")
     st.write("Explore the trained 3D Gaussian Splatting scene interactively right here in the dashboard.")
     
-    # Embedding the live webpage
+    # Added ?embed=true to hide sidebars, height adjusted for screens, and allowfullscreen tags enabled
     st.markdown(
         """
-        <iframe src="https://superspl.at/scene/ccb8ad42" width="100%" height="800" style="border:none;"></iframe>
+        <iframe 
+            src="https://superspl.at/scene/ccb8ad42?embed=true" 
+            width="100%" 
+            height="700" 
+            style="border:none; border-radius: 8px;" 
+            allow="autoplay; fullscreen; xr-spatial-tracking" 
+            allowfullscreen>
+        </iframe>
         """,
         unsafe_allow_html=True
     )
