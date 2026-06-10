@@ -131,22 +131,24 @@ with tab2:
 # ==========================================
 with tab3:
     st.markdown("## Interactive SuperSplat Scene")
-    st.write("Explore the trained 3D Gaussian Splatting scene interactively right here in the dashboard.")
     
-    # Added ?embed=true to hide sidebars, height adjusted for screens, and allowfullscreen tags enabled
-    st.markdown(
-        """
-        <iframe 
-            src="https://superspl.at/scene/ccb8ad42?embed=true" 
-            width="100%" 
-            height="700" 
-            style="border:none; border-radius: 8px;" 
-            allow="autoplay; fullscreen; xr-spatial-tracking" 
-            allowfullscreen>
-        </iframe>
-        """,
-        unsafe_allow_html=True
-    )
+    panel_col, canvas_col = st.columns([1, 3])
+    
+    with panel_col:
+        st.subheader("Live Exploration")
+        st.write("Click inside the viewport on the right to interact with the UCLA Gateway Plaza reconstruction!")
+        
+        with st.container(border=True):
+            st.subheader("3D Viewer Controls")
+            st.markdown("---")
+            st.markdown("**Rotate**<br>Left-Click + Drag mouse", unsafe_allow_html=True)
+            st.markdown("---")
+            st.markdown("**Move**<br>Right-Click + Drag mouse", unsafe_allow_html=True)
+            st.markdown("---")
+            st.markdown("**Zoom**<br>Scroll mouse wheel", unsafe_allow_html=True)
+            
+    with canvas_col:
+        st.iframe("https://superspl.at/s?id=ccb8ad42", height=550)
 
 
 # ==========================================
