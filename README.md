@@ -14,7 +14,7 @@ The complete dashboard is hosted on the Streamlit Community Cloud and can be acc
 ---
 **[Launch SuperSplat Viewer](https://superspl.at/scene/ccb8ad42)**
 ---
-**[Read the White Paper](https://github.com/koroltony/UCLA_Gateway_Plaza_3DGS/blob/main/UCLA_Gateway_Plaza_Reconstruction-compressed.pdf)**
+**[Read the White Paper](https://github.com/koroltony/UCLA_Gateway_Plaza_3DGS/blob/main/UCLA_3DGS_Report.pdf)**
 ---
 
 ## Project Architecture & Contents
