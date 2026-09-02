@@ -13,7 +13,8 @@ The complete dashboard is hosted on the Streamlit Community Cloud and can be acc
 **[Launch the Interactive Website!](https://uclagatewayplaza3dgs-f8wajulkkjqwy7nf4cusxg.streamlit.app/)**
 ---
 **[Launch SuperSplat Viewer](https://superspl.at/scene/ccb8ad42)**
-
+---
+**[Read the White Paper](https://github.com/koroltony/UCLA_Gateway_Plaza_3DGS/blob/main/UCLA_Gateway_Plaza_Reconstruction-compressed.pdf)**
 ---
 
 ## Project Architecture & Contents
